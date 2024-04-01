@@ -101,22 +101,6 @@ class Trainer_3(object):
             c_loss = cluster_loss(sc1, fc1)
             total_loss = 1 * zinb_loss + 0.5 * re_loss + 1 * c_loss
 
-            # ST-GCAA 消除自动编码器后的损失
-            # emb, pi, disp, mean, sc1, fc1 = self.model(features, sadj, fadj)
-            # zinb_loss = ZINB(pi, theta=disp, ridge_lambda=0).loss(features, mean, mean=True)
-            # # re_loss = F.mse_loss(x_bar, features)
-            # cluster_loss = ClusterLoss(self.n_clusters, 0.6)
-            # c_loss = cluster_loss(sc1, fc1)
-            # total_loss = 1 * zinb_loss + 1 * c_loss
-
-            # # # ST-GCAA 只使用特征邻域结构的损失
-            # emb, pi, disp, mean, x_bar = self.model(features, sadj, fadj)
-            # zinb_loss = ZINB(pi, theta=disp, ridge_lambda=0).loss(features, mean, mean=True)
-            # re_loss = F.mse_loss(x_bar, features)
-            # # cluster_loss = ClusterLoss(self.n_clusters, 0.6)
-            # # c_loss = cluster_loss(sc1, fc1)
-            # total_loss = 1 * zinb_loss + 0.5 * re_loss
-
             emb = pd.DataFrame(emb.cpu().detach().numpy()).fillna(0).values
             mean = pd.DataFrame(mean.cpu().detach().numpy()).fillna(0).values
 
